@@ -1,0 +1,15 @@
+# Entornos Virtuales y Logs
+venv/
+*.log
+__pycache__/
+*.pyc
+.DS_Store
+
+# Archivos de Airflow locales
+airflow.db
+airflow.cfg
+webserver_config.py
+standalone_admin_password.txt
+
+# Datos (Nunca subimos datos reales o generados al repo de código)
+*.csv

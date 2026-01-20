@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  # 1. Base de Datos (PostgreSQL)
+  postgres:
+    image: postgres:13
+    container_name: de_postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: data_engineering
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. pgAdmin (Para ver la base de datos visualmente)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: de_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8082:80" # Cambié a 8082 por si acaso Airflow usa el 8080/8081
+    depends_on:
+      - postgres
+
+  # 3. Apache NiFi (El que necesita el Driver)
+  #nifi:
+    #image: apache/nifi:latest
+    #container_name: de_nifi
+    #ports:
+      #- "8443:8443"
+    #environment:
+      #- NIFI_WEB_HTTP_PORT=
+      #- NIFI_WEB_HTTPS_PORT=8443
+      #- SINGLE_USER_CREDENTIALS_USERNAME=admin
+      #- SINGLE_USER_CREDENTIALS_PASSWORD=password12345678
+    #volumes:
+      # AQUÍ ESTÁ LA MAGIA: Conectamos tu carpeta local con el contenedor
+      #- ./drivers:/opt/nifi/nifi-current/drivers
+
+  # 4. Elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
+    container_name: de_elastic
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+
+  # 5. Kibana
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.9
+    container_name: de_kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+volumes:
+  postgres_data:
