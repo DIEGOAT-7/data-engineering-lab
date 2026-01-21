@@ -1,5 +1,4 @@
 from airflow import DAG
-# Usamos la importación moderna para Airflow 3.0 (adiós advertencia amarilla)
 from airflow.providers.standard.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from datetime import datetime
@@ -11,8 +10,7 @@ def generar_y_guardar_empleados():
 
     print("Generando datos falsos...")
     for _ in range(100):
-        # --- AQUÍ ESTÁ LA MAGIA DE LA GUILLOTINA ---
-        # [:50] significa: "Toma desde la letra 0 hasta la 50 e ignora el resto"
+       
         nombre = fake.name()[:50] 
         puesto = fake.job()[:50]
         

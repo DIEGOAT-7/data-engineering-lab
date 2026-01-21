@@ -7,7 +7,6 @@ import os
 
 def exportar_a_csv():
     # 1. Definir dónde queremos guardar el archivo
-    # Usamos os.path.expanduser para asegurar que encuentre tu carpeta de usuario
     ruta_archivo = os.path.expanduser('~/Desktop/data-engineering-lab/reporte_empleados.csv')
     
     # 2. Conectarse a la Base de Datos
@@ -15,7 +14,7 @@ def exportar_a_csv():
     connection = pg_hook.get_conn()
     cursor = connection.cursor()
     
-    # 3. Ejecutar la consulta (Query)
+    # 3. Ejecutar la consulta 
     cursor.execute("SELECT * FROM empleados")
     registros = cursor.fetchall() # Traer todos los datos
     

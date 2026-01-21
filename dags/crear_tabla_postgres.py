@@ -10,7 +10,6 @@ with DAG(
     catchup=False
 ) as dag:
 
-    # --- INICIO DEL BLOQUE INDENTADO (4 espacios) ---
     
     # Tarea 1: Crear Tabla
     crear_tabla = SQLExecuteQueryOperator(
