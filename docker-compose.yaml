@@ -26,7 +26,7 @@ services:
     depends_on:
       - postgres
 
-  # 3. Apache NiFi (El que necesita el Driver)
+  # 3. Apache NiFi 
   #nifi:
     #image: apache/nifi:latest
     #container_name: de_nifi
