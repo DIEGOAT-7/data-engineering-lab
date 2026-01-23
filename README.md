@@ -28,6 +28,10 @@ El stack tecnológico está diseñado para ser modular y escalable:
     * Proceso de **Reverse ETL**.
     * Extrae datos procesados del Data Warehouse y genera reportes planos (.csv) para consumo de los stakeholders.
 
+4.  **`sincronizar_empleados_es.py`**:
+    * Pipeline Híbrido.
+    * El pipeline no solo mueve datos; cruza fronteras entre tecnologías (SQL relacional a NoSQL documental) y entre entornos (mi Mac local a un contenedor Docker).
+
 ##  Cómo ejecutar este proyecto
 
 1.  **Levantar Infraestructura:**
