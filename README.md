@@ -3,6 +3,8 @@
 Este repositorio contiene una implementación práctica de **Data Pipelines** orquestados con **Apache Airflow** y contenerizados con **Docker**. El proyecto simula un 
 entorno empresarial de ingeniería de datos, desde la generación de datos sintéticos hasta la extracción de reportes de negocio.
 
+![alt text](ss_airlfow.png)
+
 ##  Arquitectura del Proyecto
 
 El stack tecnológico está diseñado para ser modular y escalable:
