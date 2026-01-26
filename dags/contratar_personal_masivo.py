@@ -3,6 +3,7 @@ from airflow.providers.standard.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from datetime import datetime
 from faker import Faker
+from datetime import datetime, timedelta
 
 def generar_y_guardar_empleados():
     fake = Faker('es_ES')
@@ -35,9 +36,13 @@ def generar_y_guardar_empleados():
 
 with DAG(
     dag_id='contratar_personal_masivo',
-    start_date=datetime(2023, 1, 1),
-    schedule=None,
-    catchup=False
+    # Poner fecha de inicio: Hace 7 días exactos
+    start_date=datetime.now() - timedelta(days=7),
+    # Ejecutar: Una vez al día
+    schedule='@daily',
+    # Catchup True: "Rellena los días perdidos desde el start_date hasta hoy"
+    catchup=True,
+    tags=['RRHH', 'Ingesta']
 ) as dag:
 
     tarea_contratar = PythonOperator(
