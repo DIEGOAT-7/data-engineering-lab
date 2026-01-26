@@ -3,6 +3,7 @@ from airflow.providers.standard.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from elasticsearch import Elasticsearch, helpers
 from datetime import datetime
+from datetime import datetime, timedelta
 
 # Definimos la conexión a Elasticsearch (Nombre del contenedor en Docker)
 ES_HOST = "http://localhost:9200"
@@ -55,9 +56,13 @@ def transferir_postgres_a_elastic():
 
 with DAG(
     dag_id='sincronizar_empleados_es',
-    start_date=datetime(2023, 1, 1),
-    schedule=None,
-    catchup=False
+    # MISMA fecha de inicio que el otro (hace 7 días)
+    start_date=datetime.now() - timedelta(days=7),
+    # MISMO horario
+    schedule='@daily',
+    # MISMO catchup para que rellene el historial
+    catchup=True,
+    tags=['Elasticsearch', 'Sync']
 ) as dag:
 
     tarea_sincronizar = PythonOperator(
