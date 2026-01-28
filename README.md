@@ -1,5 +1,11 @@
 # Data Engineering Lab: End-to-End ETL with Airflow & Docker 
 
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
+![Apache Airflow](https://img.shields.io/badge/Apache%20Airflow-Orchestration-017CEE?logo=apache-airflow&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Data%20Warehouse-336791?logo=postgresql&logoColor=white)
+![Elasticsearch](https://img.shields.io/badge/Elasticsearch-Search%20Engine-005571?logo=elasticsearch&logoColor=white)
+
 Este repositorio contiene una implementación práctica de **Data Pipelines** orquestados con **Apache Airflow** y contenerizados con **Docker**. El proyecto simula un 
 entorno empresarial de ingeniería de datos, desde la generación de datos sintéticos hasta la extracción de reportes de negocio.
 
@@ -8,23 +14,6 @@ entorno empresarial de ingeniería de datos, desde la generación de datos sint�
 ##  Arquitectura del Proyecto
 
 El sistema utiliza una arquitectura contenerizada donde **Airflow** actúa como el cerebro orquestador que conecta servicios aislados a través de una red Docker interna.
-
-
-graph LR
-    A[Generador Faker] -->|Batch Insert| B(PostgreSQL DW)
-    B -->|Extraction SQL| C{Apache Airflow}
-    C -->|Transformation JSON| D[Elasticsearch]
-    D -->|Analytics| E[Kibana Dashboard]
-    
-    subgraph Docker Network
-    B
-    D
-    E
-    end
-    
-    subgraph Host / Orchestration
-    C
-    end
 
 El stack tecnológico está diseñado para ser modular y escalable:
 
