@@ -9,7 +9,7 @@ entorno empresarial de ingeniería de datos, desde la generación de datos sint�
 
 El sistema utiliza una arquitectura contenerizada donde **Airflow** actúa como el cerebro orquestador que conecta servicios aislados a través de una red Docker interna.
 
-```mermaid
+
 graph LR
     A[Generador Faker] -->|Batch Insert| B(PostgreSQL DW)
     B -->|Extraction SQL| C{Apache Airflow}
