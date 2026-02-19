@@ -42,6 +42,51 @@ El stack tecnológico está diseñado para ser modular y escalable:
     * Pipeline Híbrido.
     * El pipeline no solo mueve datos; cruza fronteras entre tecnologías (SQL relacional a NoSQL documental) y entre entornos (mi Mac local a un contenedor Docker).
 
+### **Pipelines Sistema Dual**
+5. Hybrid Data Pipeline (SQL -> NoSQL) con Time-Travel 
+**Orquestación:** DAG configurado con catchup=True para ejecutar Backfilling automático. Capaz de recuperar y procesar semanas de datos históricos de contrataciones en 
+segundos.
+
+**Flujo:** Extrae datos transaccionales de PostgreSQL y los inyecta masivamente (helpers.bulk) en Elasticsearch para habilitar búsquedas ultrarrápidas.
+
+6. E-commerce Clickstream Simulator 
+**Streaming de Eventos:** Generación de miles de eventos de navegación de usuarios (page_view, add_to_cart, purchase).
+
+**Real-Time Analytics:** Inyección directa a Elasticsearch saltando la base de datos relacional, permitiendo monitoreo en vivo del comportamiento del usuario en Kibana.
+
+### **Arquitectura del Sistema Dual**
+
+## El orquestador maneja dos pipelines principales de forma simultánea:
+
+```mermaid
+graph TD
+    subgraph Data Sources & Generation
+        A[Faker: Empleados/RRHH]
+        E[Generador: E-commerce Clickstream]
+    end
+
+    subgraph Orchestration & Processing
+        C{Apache Airflow}
+    end
+
+    subgraph Data Lake & Analytics
+        B[(PostgreSQL)]
+        D[(Elasticsearch)]
+        F[Kibana Dashboard]
+    end
+
+    A -->|Batch Insert| B
+    B -->|PostgresHook Extraction| C
+    E -->|Real-Time Event Stream| C
+    C -->|Bulk API (JSON)| D
+    D -->|Index Search| F
+
+
+## Visualización de Datos
+El proyecto continua en Kibana, aprovechando los índices generados (empleados_search y ecommerce_clickstream) para construir Dashboards interactivos que permiten cruzar datos 
+demográficos y de comportamiento web al instante.
+
+
 ##  Cómo ejecutar este proyecto
 
 1.  **Levantar Infraestructura:**
