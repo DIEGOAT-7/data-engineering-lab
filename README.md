@@ -43,13 +43,16 @@ El stack tecnológico está diseñado para ser modular y escalable:
     * El pipeline no solo mueve datos; cruza fronteras entre tecnologías (SQL relacional a NoSQL documental) y entre entornos (mi Mac local a un contenedor Docker).
 
 ### **Pipelines Sistema Dual**
-5.**' Hybrid Data Pipeline (SQL -> NoSQL) con Time-Travel'** 
+
+5. **`Hybrid Data Pipeline (SQL -> NoSQL) con Time-Travel`**:
+ 
 **Orquestación:** DAG configurado con catchup=True para ejecutar Backfilling automático. Capaz de recuperar y procesar semanas de datos históricos de contrataciones en 
 segundos.
 
 **Flujo:** Extrae datos transaccionales de PostgreSQL y los inyecta masivamente (helpers.bulk) en Elasticsearch para habilitar búsquedas ultrarrápidas.
 
-6. **'E-commerce Clickstream Simulator'** 
+6. **`E-commerce Clickstream Simulator`**:
+ 
 **Streaming de Eventos:** Generación de miles de eventos de navegación de usuarios (page_view, add_to_cart, purchase).
 
 **Real-Time Analytics:** Inyección directa a Elasticsearch saltando la base de datos relacional, permitiendo monitoreo en vivo del comportamiento del usuario en Kibana.
